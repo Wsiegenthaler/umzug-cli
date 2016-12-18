@@ -48,7 +48,7 @@ module.exports = function (opts) {
 function createApi (stdout, umzug) {
   return {
     executed: function () {
-      if (typeof umzug.storage.executed !=== 'function') {
+      if (typeof umzug.storage.executed !== 'function') {
         stdout.write("The current storage doesn't support a history.\n")
         process.exit(1)
         return
