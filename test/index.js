@@ -26,9 +26,9 @@ test('api', function (t) {
     t.equal(typeof api.pending, 'function')
   })
 
-  t.test('exposes a .history command', function (t) {
+  t.test('exposes a .executed command', function (t) {
     t.plan(1)
-    t.equal(typeof api.history, 'function')
+    t.equal(typeof api.executed, 'function')
   })
 
   t.test('exposes a .cli command', function (t) {

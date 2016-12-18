@@ -21,7 +21,7 @@ module.exports = function (opts) {
         '  down [file-to-migrate] migrates a specific file down',
         '  execute [direction] [files-to-migrate] migrates a specific file',
         '  pending                shows all pending migrations',
-        '  history                shows the migration history',
+        '  executed               shows the migration history',
         ''
       ].join('\n'))
       process.exit(1)
@@ -47,14 +47,14 @@ module.exports = function (opts) {
 
 function createApi (stdout, umzug) {
   return {
-    history: function () {
-      if (!typeof umzug.storage.history === 'function') {
+    executed: function () {
+      if (typeof umzug.storage.executed !=== 'function') {
         stdout.write("The current storage doesn't support a history.\n")
         process.exit(1)
         return
       }
 
-      return umzug.storage.history().then(function (events) {
+      return umzug.storage.executed().then(function (events) {
         var lines = events.map(function (e) {
           var time = new Date(e.time).toLocaleTimeString('en-us', {year: 'numeric', month: 'numeric', day: 'numeric'})
           return Object.assign(e, {time: time})

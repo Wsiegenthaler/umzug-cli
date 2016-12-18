@@ -26,7 +26,7 @@ Where [command] is one of:
   down [file-to-migrate] migrates a specific file down
   execute [direction] [files-to-migrate] migrates a specific file
   pending                shows all pending migrations
-  history                shows the migration history
+  executed               shows the migration history
 ```
 
 
