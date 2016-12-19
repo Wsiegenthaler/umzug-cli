@@ -54,19 +54,16 @@ function createApi (stdout, umzug) {
         return
       }
 
-      return umzug.storage.executed().then(function (events) {
-        var lines = events.map(function (e) {
-          var time = new Date(e.time).toLocaleTimeString('en-us', {year: 'numeric', month: 'numeric', day: 'numeric'})
-          return Object.assign(e, {time: time})
-        })
-        table(lines, ['time', 'type', 'name', 'user', 'host'], null, stdout)
+      return umzug.storage.executed().then(function (migrations) {
+        migrations = migrations.map(mig => ({ file: mig }))
+        if (!migrations.length) stdout.write('No executed migrations\n')
+        else table(migrations, ['file'], ['Executed migrations'], stdout)
       })
     },
     pending: function () {
       return umzug.pending().then(function (migrations) {
-        migrations = migrations.map(function (mig) { return {file: mig.file} })
         if (!migrations.length) stdout.write('No pending migrations\n')
-        else table(migrations, null, ['Pending migrations'], stdout)
+        else table(migrations, ['file'], ['Pending migrations'], stdout)
       })
     },
     up: updown(stdout, umzug, 'up'),
